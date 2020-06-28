@@ -1,0 +1,736 @@
+import * as React from 'react';
+import {Text, View, SafeAreaView, Image, TouchableOpacity} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createStackNavigator} from '@react-navigation/stack';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+
+function CustomHeader({title, isHome, navigation}) {
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        height: 50,
+      }}>
+      {isHome ? (
+        <View
+          style={{
+            flex: 1,
+
+            justifyContent: 'center',
+            marginLeft: 5,
+          }}>
+          <Image
+            style={{width: 30, height: 30}}
+            source={require('../menuicon.png')}
+            resizeMode="contain"
+          />
+        </View>
+      ) : (
+        <TouchableOpacity
+          style={{
+            flexDirection: 'row',
+
+            alignItems: 'center',
+            marginLeft: 5,
+          }}
+          onPress={() => navigation.goBack()}>
+          <Image
+            style={{width: 25, height: 25}}
+            source={require('../arrow.png')}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
+      )}
+
+      <View
+        style={{
+          flex: 1.5,
+
+          justifyContent: 'center',
+        }}>
+        <Text style={{textAlign: 'center'}}>{title}</Text>
+      </View>
+      <View
+        style={{
+          flex: 1,
+        }}
+      />
+    </View>
+  );
+}
+
+function HomeScreen({navigation}) {
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      <CustomHeader title="Home" isHome={true} navigation={navigation} />
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>Home!</Text>
+        <TouchableOpacity
+          style={{marginTop: 20, fontSize: 20}}
+          onPress={() => navigation.navigate('Home Details')}>
+          <Text>Home Details!</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  );
+}
+function HomeScreenDetails() {
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      <CustomHeader title="Home Details" />
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>Home Detais!</Text>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+function MyOrder({navigation}) {
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      <CustomHeader title="My Order" isHome={true} />
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>My Order!</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Order Details')}>
+          <Text style={{marginTop: 20, fontSize: 20}}>Order Details!</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  );
+}
+function MyOrderDetails({navigation}) {
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      <CustomHeader title="My Order Detais" navigation={navigation} />
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>My Order Details!</Text>
+      </View>
+    </SafeAreaView>
+  );
+}
+function Profile({navigation}) {
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      <CustomHeader title="Profile" isHome={true} />
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>Profile!</Text>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Profile Details')}>
+          <Text style={{marginTop: 20, fontSize: 20}}>profile Details!</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  );
+}
+function Profileditails({navigation}) {
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      <CustomHeader title="Profile Ditais" navigation={navigation} />
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>Profile Dtails!</Text>
+      </View>
+    </SafeAreaView>
+  );
+}
+function More({navigation}) {
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      <CustomHeader title="More" isHome={true} />
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>More!</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('More Details')}>
+          <Text style={{marginTop: 20, fontSize: 20}}>More Details!</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  );
+}
+function MoreDtais({navigation}) {
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      <CustomHeader title="More Details" navigation={navigation} />
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>More Details!</Text>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const Tab = createBottomTabNavigator();
+
+const navOptionHandler = () => ({
+  headerShown: false,
+});
+
+const StackHome = createStackNavigator();
+
+function HomeStack() {
+  return (
+    <StackHome.Navigator initialRouteName="Home">
+      <StackHome.Screen
+        name="Home"
+        component={HomeScreen}
+        options={navOptionHandler}
+      />
+      <StackHome.Screen
+        name="Home Details"
+        component={HomeScreenDetails}
+        options={navOptionHandler}
+      />
+    </StackHome.Navigator>
+  );
+}
+
+const StackOrder = createStackNavigator();
+function OrderStack() {
+  return (
+    <StackOrder.Navigator initialRouteName="MyOrder">
+      <StackOrder.Screen
+        name="MyOrder"
+        component={MyOrder}
+        options={navOptionHandler}
+      />
+      <StackOrder.Screen
+        name="Order Details"
+        component={MyOrderDetails}
+        options={navOptionHandler}
+      />
+    </StackOrder.Navigator>
+  );
+}
+const StackProfile = createStackNavigator();
+function ProfileStack() {
+  return (
+    <StackProfile.Navigator initialRouteName="Profile">
+      <StackProfile.Screen
+        name="Profile"
+        component={Profile}
+        options={navOptionHandler}
+      />
+      <StackProfile.Screen
+        name="Profile Details"
+        component={Profileditails}
+        options={navOptionHandler}
+      />
+    </StackProfile.Navigator>
+  );
+}
+const StackMore = createStackNavigator();
+function MoreStack() {
+  return (
+    <StackMore.Navigator initialRouteName="More">
+      <StackMore.Screen
+        name="More"
+        component={More}
+        options={navOptionHandler}
+      />
+      <StackMore.Screen
+        name="More Details"
+        component={MoreDtais}
+        options={navOptionHandler}
+      />
+    </StackMore.Navigator>
+  );
+}
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={({route}) => ({
+          tabBarIcon: ({focused, color, size}) => {
+            let iconName;
+            if (route.name === 'Home') {
+              return (
+                <Image
+                  source={
+                    focused
+                      ? require('../browser2.png')
+                      : require('../browser3.png')
+                  }
+                  style={{
+                    width: 25,
+                    height: 25,
+                  }}
+                />
+              );
+            } else if (route.name === 'My Order') {
+              return (
+                <Image
+                  source={
+                    focused
+                      ? require('../booking.png')
+                      : require('../booking1.png')
+                  }
+                  style={{
+                    width: 25,
+                    height: 25,
+                  }}
+                />
+              );
+            } else if (route.name === 'Profile') {
+              return (
+                <Image
+                  source={
+                    focused ? require('../user1.png') : require('../user.png')
+                  }
+                  style={{
+                    width: 25,
+                    height: 25,
+                  }}
+                />
+              );
+            } else if (route.name === 'More') {
+              return (
+                <Image
+                  source={
+                    focused ? require('../more2.png') : require('../more1.png')
+                  }
+                  style={{
+                    width: 25,
+                    height: 25,
+                  }}
+                />
+              );
+            }
+            // You can return any component that you like here!
+            return <Image name={iconName} resizeMode="contain" />;
+          },
+        })}
+        tabBarOptions={{
+          activeTintColor: '#1e474c',
+          inactiveTintColor: 'black',
+        }}>
+        <Tab.Screen name="Home" component={HomeStack} />
+        <Tab.Screen name="My Order" component={OrderStack} />
+        <Tab.Screen name="Profile" component={ProfileStack} />
+        <Tab.Screen name="More" component={MoreStack} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////
+              MIX BOTTOM AND DRAWER NAVIGATION
+/////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+import * as React from 'react';
+import {
+  Text,
+  View,
+  SafeAreaView,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createStackNavigator} from '@react-navigation/stack';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+
+function CustomHeader({title, isHome, navigation}) {
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        height: 50,
+      }}>
+      {
+      isHome ? (
+        <TouchableOpacity
+          style={{
+            flex: 1,
+
+            justifyContent: 'center',
+            marginLeft: 5,
+          }}
+          onPress={() => navigation.openDrawer()}>
+          <Image
+            style={{width: 30, height: 30}}
+            source={require('../menuicon.png')}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          style={{
+            flexDirection: 'row',
+
+            alignItems: 'center',
+            marginLeft: 5,
+          }}
+          onPress={() => navigation.goBack()}>
+          <Image
+            style={{width: 25, height: 25}}
+            source={require('../arrow.png')}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
+      )}
+
+      <View
+        style={{
+          flex: 1.5,
+
+          justifyContent: 'center',
+        }}>
+        <Text style={{textAlign: 'center'}}>{title}</Text>
+      </View>
+      <View
+        style={{
+          flex: 1,
+        }}
+      />
+    </View>
+  );
+}
+
+function HomeScreen({navigation}) {
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      <CustomHeader title="Home" isHome={true} navigation={navigation} />
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>Home!</Text>
+        <TouchableOpacity
+          style={{marginTop: 20, fontSize: 20}}
+          onPress={() => navigation.navigate('Home Details')}>
+          <Text>Home Details!</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  );
+}
+function HomeScreenDetails() {
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      <CustomHeader title="Home Details" />
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>Home Detais!</Text>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+function MyOrder({navigation}) {
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      <CustomHeader title="My Order" isHome={true} navigation={navigation} />
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>My Order!</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Order Details')}>
+          <Text style={{marginTop: 20, fontSize: 20}}>Order Details!</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  );
+}
+function MyOrderDetails({navigation}) {
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      <CustomHeader title="My Order Detais" navigation={navigation} />
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>My Order Details!</Text>
+      </View>
+    </SafeAreaView>
+  );
+}
+function Profile({navigation}) {
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      <CustomHeader title="Profile" isHome={true} navigation={navigation} />
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>Profile!</Text>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Profile Details')}>
+          <Text style={{marginTop: 20, fontSize: 20}}>profile Details!</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  );
+}
+function Profileditails({navigation}) {
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      <CustomHeader title="Profile Ditais" navigation={navigation} />
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>Profile Dtails!</Text>
+      </View>
+    </SafeAreaView>
+  );
+}
+function More({navigation}) {
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      <CustomHeader title="More" isHome={true} navigation={navigation} />
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>More!</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('More Details')}>
+          <Text style={{marginTop: 20, fontSize: 20}}>More Details!</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  );
+}
+function MoreDtais({navigation}) {
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      <CustomHeader title="More Details" navigation={navigation} />
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>More Details!</Text>
+      </View>
+    </SafeAreaView>
+  );
+}
+function NotificationsScreen({navigation}) {
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      <CustomHeader title="Terms & conditions" navigation={navigation} />
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>Terms & conditions</Text>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+function CustomDrawerContent(props) {
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      <View
+        style={{
+          height: 150,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Image
+          source={require('../person1.png')}
+          style={{
+            width: 120,
+            height: 120,
+            borderRadius: 60,
+            borderColor: '#1e474c',
+            borderWidth: 2,
+            marginTop: 20,
+          }}
+        />
+        <Text style={{fontSize: 16, fontWeight: 'bold'}}> Muhammad Rashid</Text>
+      </View>
+      <View
+        style={{
+          height: 1,
+          backgroundColor: '#1e474c',
+          marginTop: 20,
+        }}
+      />
+
+      <ScrollView style={{marginLeft: 10, padding: 10}}>
+        <TouchableOpacity
+          style={{marginTop: 20, fontSize: 20, color: 'black'}}
+          onPress={() => props.navigation.navigate('Home')}>
+          <Text style={{fontSize: 16}}>Home </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{marginTop: 20, fontSize: 20, color: 'black'}}
+          onPress={() => props.navigation.navigate('Profile')}>
+          <Text style={{fontSize: 16}}>Profile</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{marginTop: 20, fontSize: 20, color: 'black'}}
+          onPress={() => props.navigation.navigate('My Order')}>
+          <Text style={{fontSize: 16}}>My Order</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{marginTop: 20, fontSize: 20, color: 'black'}}
+          onPress={() => props.navigation.navigate('terms&condition')}>
+          <Text style={{fontSize: 16}}>Terms & Conditions</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
+const Tab = createBottomTabNavigator();
+
+const navOptionHandler = () => ({
+  headerShown: false,
+});
+
+const StackHome = createStackNavigator();
+
+function HomeStack() {
+  return (
+    <StackHome.Navigator initialRouteName="Home">
+      <StackHome.Screen
+        name="Home"
+        component={HomeScreen}
+        options={navOptionHandler}
+      />
+      <StackHome.Screen
+        name="Home Details"
+        component={HomeScreenDetails}
+        options={navOptionHandler}
+      />
+    </StackHome.Navigator>
+  );
+}
+
+const StackOrder = createStackNavigator();
+function OrderStack() {
+  return (
+    <StackOrder.Navigator initialRouteName="MyOrder">
+      <StackOrder.Screen
+        name="MyOrder"
+        component={MyOrder}
+        options={navOptionHandler}
+      />
+      <StackOrder.Screen
+        name="Order Details"
+        component={MyOrderDetails}
+        options={navOptionHandler}
+      />
+    </StackOrder.Navigator>
+  );
+}
+const StackProfile = createStackNavigator();
+function ProfileStack() {
+  return (
+    <StackProfile.Navigator initialRouteName="Profile">
+      <StackProfile.Screen
+        name="Profile"
+        component={Profile}
+        options={navOptionHandler}
+      />
+      <StackProfile.Screen
+        name="Profile Details"
+        component={Profileditails}
+        options={navOptionHandler}
+      />
+    </StackProfile.Navigator>
+  );
+}
+const StackMore = createStackNavigator();
+function MoreStack() {
+  return (
+    <StackMore.Navigator initialRouteName="More">
+      <StackMore.Screen
+        name="More"
+        component={More}
+        options={navOptionHandler}
+      />
+      <StackMore.Screen
+        name="More Details"
+        component={MoreDtais}
+        options={navOptionHandler}
+      />
+    </StackMore.Navigator>
+  );
+}
+
+function TabNvigator() {
+  return (
+    <Tab.Navigator
+      screenOptions={({route}) => ({
+        tabBarIcon: ({focused, color, size}) => {
+          let iconName;
+          if (route.name === 'Home') {
+            return (
+              <Image
+                source={
+                  focused
+                    ? require('../browser2.png')
+                    : require('../browser3.png')
+                }
+                style={{
+                  width: 25,
+                  height: 25,
+                }}
+              />
+            );
+          } else if (route.name === 'My Order') {
+            return (
+              <Image
+                source={
+                  focused
+                    ? require('../booking.png')
+                    : require('../booking1.png')
+                }
+                style={{
+                  width: 25,
+                  height: 25,
+                }}
+              />
+            );
+          } else if (route.name === 'Profile') {
+            return (
+              <Image
+                source={
+                  focused ? require('../user1.png') : require('../user.png')
+                }
+                style={{
+                  width: 25,
+                  height: 25,
+                }}
+              />
+            );
+          } else if (route.name === 'More') {
+            return (
+              <Image
+                source={
+                  focused ? require('../more2.png') : require('../more1.png')
+                }
+                style={{
+                  width: 25,
+                  height: 25,
+                }}
+              />
+            );
+          }
+          // You can return any component that you like here!
+          return <Image name={iconName} resizeMode="contain" />;
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: '#1e474c',
+        inactiveTintColor: 'black',
+      }}>
+      <Tab.Screen name="Home" component={HomeStack} />
+      <Tab.Screen name="My Order" component={OrderStack} />
+      <Tab.Screen name="Profile" component={ProfileStack} />
+      <Tab.Screen name="More" component={MoreStack} />
+    </Tab.Navigator>
+  );
+}
+
+const Drawer = createDrawerNavigator();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Drawer.Navigator
+        initialRouteName="Home"
+        drawerContent={props => CustomDrawerContent(props)}>
+        <Drawer.Screen name="Home" component={TabNvigator} />
+        <Drawer.Screen name="Profile" component={TabNvigator} />
+        <Drawer.Screen name="My Order" component={TabNvigator} />
+        <Drawer.Screen name="terms&condition" component={TabNvigator} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+  );
+}
